@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Лабораторная работа №1</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        color: #222;
+    }
+
+    table.layout {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table.layout > tbody > tr > td {
+        vertical-align: top;
+        padding: 10px;
+    }
+
+    #header {
+        font-family: monospace;
+        color: #0b3d91;
+        font-size: 20px;
+        background-color: #dce6f7;
+        border: 1px solid #9ab0d6;
+        padding: 10px;
+    }
+
+    #header span {
+        display: block;
+    }
+
+    #header span::first-letter {
+        font-size: 1.3em;
+        color: #06285c;
+    }
+
+    fieldset {
+        border: 2px solid #888;
+        border-radius: 6px;
+    }
+
+    fieldset legend {
+        font-weight: bold;
+    }
+
+    fieldset table td {
+        padding: 4px 8px;
+    }
+
+    input[type="text"] {
+        padding: 4px 6px;
+        border: 1px solid #aaa;
+        border-radius: 3px;
+    }
+
+    input[type="text"]:focus {
+        border-color: #0b3d91;
+        outline: none;
+        background-color: #eef3fc;
+    }
+
+    input.invalid {
+        border-color: #c0392b;
+        background-color: #fbe9e7;
+    }
+
+    button {
+        padding: 6px 14px;
+        border: none;
+        border-radius: 4px;
+        background-color: #0b3d91;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #06285c;
+    }
+
+    button:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+    }
+
+    .error-msg {
+        color: #c0392b;
+        font-size: 13px;
+        min-height: 16px;
+        display: block;
+    }
+
+    #results-wrap table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    #results-wrap table caption {
+        caption-side: top;
+        font-weight: bold;
+        text-align: left;
+        padding-bottom: 6px;
+    }
+
+    #results-wrap th, #results-wrap td {
+        border: 1px solid #bbb;
+        padding: 6px 10px;
+        text-align: center;
+    }
+
+    #results-wrap thead th {
+        background-color: #0b3d91;
+        color: #fff;
+    }
+
+    #results-wrap tbody tr:nth-child(even) {
+        background-color: #f0f4fb;
+    }
+
+    #results-wrap tbody tr:hover {
+        background-color: #dbe6f7;
+    }
+
+    .hit {
+        color: #1a7a1a;
+        font-weight: bold;
+    }
+
+    .miss {
+        color: #c0392b;
+        font-weight: bold;
+    }
+
+    #canvasBox {
+        border: 1px solid #999;
+        background-color: #fff;
+    }
+</style>
+</head>
+<body>
+
+<table class="layout">
+<tbody>
+<tr>
+<td colspan="2">
+    <div id="header">
+        <span>ФИО: Антипов Семён Андреевич</span>
+        <span>Группа: P3208</span>
+        <span>Вариант: 12630</span>
+    </div>
+</td>
+</tr>
+
+<tr>
+<td style="width:420px;">
+    <canvas id="canvasBox" width="400" height="400"></canvas>
+</td>
+<td>
+    <fieldset>
+        <legend>Проверка точки</legend>
+        <table>
+        <tbody>
+        <tr>
+            <td><label for="xInput">X (-5 … 5):</label></td>
+            <td>
+                <input type="text" id="xInput" name="x">
+                <span class="error-msg" id="xError"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="yInput">Y (-5 … 5):</label></td>
+            <td>
+                <input type="text" id="yInput" name="y">
+                <span class="error-msg" id="yError"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="rInput">R (1 … 4):</label></td>
+            <td>
+                <input type="text" id="rInput" name="r">
+                <span class="error-msg" id="rError"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="button" id="submitBtn">Проверить</button>
+                <button type="button" id="clearBtn">Очистить таблицу</button>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+    </fieldset>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" id="results-wrap">
+    <table>
+        <caption>Результаты проверок</caption>
+        <thead>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>Результат</th>
+            <th>Дата и время</th>
+        </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+    </table>
+</td>
+</tr>
+
+</tbody>
+</table>
+
+<script src="script.js"></script>
+
+</body>
+</html>
