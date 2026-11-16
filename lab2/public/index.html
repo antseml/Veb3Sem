@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лабораторная работа №2</title>
+<style>
+    body {
+        margin: 8px;
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        color: #222;
+    }
+
+    table.layout {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table.layout > tbody > tr > td {
+        vertical-align: top;
+        padding: 10px;
+    }
+
+    #header {
+        padding: 10px;
+        border: 1px solid #9ab0d6;
+        background-color: #dce6f7;
+        color: #0b3d91;
+        font-family: monospace;
+        font-size: 20px;
+    }
+
+    #header span {
+        display: block;
+    }
+
+    #header span::first-letter {
+        color: #06285c;
+        font-size: 1.3em;
+    }
+
+    fieldset {
+        border: 2px solid #888;
+        border-radius: 6px;
+    }
+
+    fieldset legend {
+        font-weight: bold;
+    }
+
+    fieldset table td {
+        padding: 4px 8px;
+    }
+
+    input[type="text"], select {
+        padding: 4px 6px;
+        border: 1px solid #aaa;
+        border-radius: 3px;
+    }
+
+    input[type="text"]:focus, select:focus {
+        border-color: #0b3d91;
+        outline: none;
+        background-color: #eef3fc;
+    }
+
+    input.invalid {
+        border-color: #c0392b;
+        background-color: #fbe9e7;
+    }
+
+    .checkboxes label {
+        display: inline-block;
+        margin-right: 8px;
+        white-space: nowrap;
+    }
+
+    .checkboxes.invalid {
+        padding: 4px;
+        border: 1px solid #c0392b;
+        border-radius: 3px;
+        background-color: #fbe9e7;
+    }
+
+    button {
+        padding: 6px 14px;
+        border: none;
+        border-radius: 4px;
+        background-color: #0b3d91;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #06285c;
+    }
+
+    button:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+    }
+
+    .error-msg {
+        display: block;
+        min-height: 16px;
+        color: #c0392b;
+        font-size: 13px;
+    }
+
+    #requestStatus {
+        min-height: 20px;
+        margin-top: 8px;
+    }
+
+    #requestStatus.error {
+        color: #c0392b;
+    }
+
+    #results-wrap table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: #fff;
+    }
+
+    #results-wrap table caption {
+        padding-bottom: 6px;
+        caption-side: top;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    #results-wrap th, #results-wrap td {
+        padding: 6px 10px;
+        border: 1px solid #bbb;
+        text-align: center;
+    }
+
+    #results-wrap thead th {
+        background-color: #0b3d91;
+        color: #fff;
+    }
+
+    #results-wrap tbody tr:nth-child(even) {
+        background-color: #f0f4fb;
+    }
+
+    #results-wrap tbody tr:hover {
+        background-color: #dbe6f7;
+    }
+
+    .hit {
+        color: #1a7a1a;
+        font-weight: bold;
+    }
+
+    .miss {
+        color: #c0392b;
+        font-weight: bold;
+    }
+
+    #canvasBox {
+        border: 1px solid #999;
+        background-color: #fff;
+    }
+
+    @media (max-width: 850px) {
+        table.layout > tbody > tr > td {
+            display: block;
+            width: auto !important;
+        }
+    }
+</style>
+</head>
+<body>
+
+<table class="layout">
+<tbody>
+<tr>
+<td colspan="2">
+    <div id="header">
+        <span>ФИО: Антипов Семён Андреевич</span>
+        <span>Группа: P3208</span>
+        <span>Вариант: 544147</span>
+    </div>
+</td>
+</tr>
+
+<tr>
+<td style="width: 420px;">
+    <canvas id="canvasBox" width="400" height="400"></canvas>
+</td>
+<td>
+    <fieldset>
+        <legend>Проверка точки</legend>
+        <table>
+        <tbody>
+        <tr>
+            <td><label for="xInput">X (-3 … 3):</label></td>
+            <td>
+                <input type="text" id="xInput" name="x" autocomplete="off">
+                <span class="error-msg" id="xError"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>Y:</td>
+            <td>
+                <div class="checkboxes" id="yCheckboxes">
+                    <label><input type="checkbox" name="y" value="-3">-3</label>
+                    <label><input type="checkbox" name="y" value="-2">-2</label>
+                    <label><input type="checkbox" name="y" value="-1">-1</label>
+                    <label><input type="checkbox" name="y" value="0">0</label>
+                    <label><input type="checkbox" name="y" value="1">1</label>
+                    <label><input type="checkbox" name="y" value="2">2</label>
+                    <label><input type="checkbox" name="y" value="3">3</label>
+                    <label><input type="checkbox" name="y" value="4">4</label>
+                    <label><input type="checkbox" name="y" value="5">5</label>
+                </div>
+                <span class="error-msg" id="yError"></span>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="rInput">R:</label></td>
+            <td>
+                <select id="rInput" name="r">
+                    <option value="1">1</option>
+                    <option value="1.5">1.5</option>
+                    <option value="2">2</option>
+                    <option value="2.5">2.5</option>
+                    <option value="3" selected>3</option>
+                </select>
+                <span class="error-msg" id="rError"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="button" id="submitBtn">Проверить</button>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+        <div id="requestStatus"></div>
+    </fieldset>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" id="results-wrap">
+    <table>
+        <caption>Результаты проверок</caption>
+        <thead>
+        <tr>
+            <th>X</th>
+            <th>Y</th>
+            <th>R</th>
+            <th>Результат</th>
+            <th>Время сервера</th>
+            <th>Время работы</th>
+        </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+    </table>
+</td>
+</tr>
+</tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
