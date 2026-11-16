@@ -4,11 +4,11 @@ set -eu
 PROJECT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 ROOT="/home/studs/s501219/httpd-root"
 HTTPD="/usr/local/sbin/httpd"
-JAVA="/usr/local/openjdk17/bin/java"
+JAVA=${JAVA:-java}
 
 "$PROJECT_DIR/scripts/build.sh"
 
-mkdir -p "$ROOT/public/lab2" "$ROOT/fcgi-bin"
+mkdir -p "$ROOT/public/lab2" "$ROOT/fcgi-bin" "$ROOT/mutex-dir"
 cp "$PROJECT_DIR/public/index.html" "$ROOT/public/lab2/index.html"
 cp "$PROJECT_DIR/public/script.js" "$ROOT/public/lab2/script.js"
 cp "$PROJECT_DIR/build/lab2.jar" "$ROOT/fcgi-bin/lab2.jar"
